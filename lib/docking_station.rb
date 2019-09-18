@@ -5,7 +5,7 @@ class DockingStation
     Bike.new
   end
   def dock(bike)
+    @bike = bike
   end
-  def bike
-  end
+attr_reader :bike
 end
