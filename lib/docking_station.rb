@@ -6,6 +6,7 @@ class DockingStation
     @bike
   end
   def dock(bike)
+    fail("No space available") if @bike
     @bike = bike
   end
 attr_reader :bike
