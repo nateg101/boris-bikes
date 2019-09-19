@@ -21,8 +21,17 @@ describe DockingStation do
     end
 
     it "raises an error when full capacity" do
-      20.times { subject.dock(Bike.new) }
+
+      times = 1
+      while times <= subject.DEFAULT_CAPACITY do
+        subject.dock(Bike.new)
+        times += 1
+      end
+
       expect { subject.dock(Bike.new) }.to raise_error "No space available"
+
+
+
     end
   end
 
