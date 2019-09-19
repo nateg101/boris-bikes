@@ -26,7 +26,7 @@ describe DockingStation do
     end
   end
 
-  describe "#capacity" do
+  describe "capacity" do
     it "allow the user to set the capacity to 25" do
       expect(DockingStation.new(25))
 # the expect in line 31 is looking for a docking station with a capacity in order to pass the test.
