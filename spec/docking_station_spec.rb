@@ -26,6 +26,13 @@ describe DockingStation do
     end
   end
 
+  describe "#capacity" do
+    it "allow the user to set the capacity to 25" do
+      expect(DockingStation.new(25))
+# the expect in line 31 is looking for a docking station with a capacity in order to pass the test.
+    end
+  end
+
   # Test accessing the @bike instance variable
   it "returns bike when looking for a docked bike" do
     bike = Bike.new
