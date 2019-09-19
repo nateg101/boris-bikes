@@ -2,6 +2,28 @@ require "docking_station"
 
 describe DockingStation do
 
+  it "Should accept a user specified value for docking capacity" do
+    dock = DockingStation.new(25)
+    expect(dock.capacity).to eq(25)
+
+  end
+
+  it "has a default capacity" do
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+  end
+
+
+  it "raises error if capacity is breached" do
+    subject.capacity.times { subject.dock Bike.new }
+    expect { subject.dock Bike.new }.to raise_error "No space available"
+  end
+
+  it "has a variable capacity" do
+    docking_station = DockingStation.new(50)
+    50.times { docking_station.dock Bike.new }
+    expect { docking_station.dock Bike.new }.to raise_error "No space available"
+  end
+
   it "responds to release_bike" do
     expect(subject).to respond_to :release_bike
   end
@@ -19,8 +41,8 @@ describe DockingStation do
       bike = Bike.new
       expect(subject.dock(bike).last).to eq bike
     end
-
-    it "raises an error when full capacity" do
+  end
+    # it "raises an error when full capacity" do
 
       # times = 1
       # while times <= subject.DEFAULT_CAPACITY do
@@ -28,16 +50,13 @@ describe DockingStation do
       #   times += 1
       # end
 
-      DockingStation::DEFAULT_CAPACITY.times do
-        subject.dock Bike.new
-      end
-
-      expect { subject.dock(Bike.new) }.to raise_error "No space available"
-
-
-
-    end
-  end
+  #     DockingStation::DEFAULT_CAPACITY.times do
+  #       subject.dock Bike.new
+  #     end
+  #
+  #     expect { subject.dock(Bike.new) }.to raise_error "No space available"
+  #   end
+  # end
 
   # Test accessing the @bike instance variable
   it "returns bike when looking for a docked bike" do
