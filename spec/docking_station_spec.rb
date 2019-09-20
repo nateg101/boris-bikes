@@ -2,7 +2,17 @@ require "docking_station"
 
 describe DockingStation do
 
-  it "Should accept a user specified value for docking capacity" do
+  # As a maintainer of the system,
+  # So that I can manage broken bikes and not disappoint users,
+  # I'd like docking stations not to release broken bikes.
+    it "report no working bikes" do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect { subject.release_bike }.to raise_error "No working bikes"
+    end
+
+  it "should accept a user specified value for docking capacity" do
     dock = DockingStation.new(25)
     expect(dock.capacity).to eq(25)
 
@@ -31,7 +41,7 @@ describe DockingStation do
   it "releases working bikes" do
     bike = Bike.new
     subject.dock(bike)
-    bike = subject.release_bike.last
+    bike = subject.release_bike
     expect(bike).to be_working
   end
 
@@ -42,39 +52,21 @@ describe DockingStation do
       expect(subject.dock(bike).last).to eq bike
     end
   end
-    # it "raises an error when full capacity" do
 
-      # times = 1
-      # while times <= subject.DEFAULT_CAPACITY do
-      #   subject.dock(Bike.new)
-      #   times += 1
-      # end
-
-  #     DockingStation::DEFAULT_CAPACITY.times do
-  #       subject.dock Bike.new
-  #     end
-  #
-  #     expect { subject.dock(Bike.new) }.to raise_error "No space available"
-  #   end
-  # end
-
-  # Test accessing the @bike instance variable
   it "returns bike when looking for a docked bike" do
     bike = Bike.new
     subject.dock(bike)
     expect(subject.bikes.last).to eq bike
   end
 
-  # Testing the :release_bike method
-  describe '#release_bike' do
     it "releases a bike" do
       bike = Bike.new
       subject.dock(bike)
-      expect(subject.release_bike.last).to eq bike
+      expect(subject.release_bike).to eq bike
     end
+
     it "raises an error when there are no bikes" do
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
-  end
 
 end
