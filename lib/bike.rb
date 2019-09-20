@@ -1,17 +1,14 @@
 class Bike
 
-attr_reader :broken
+attr_accessor :broken
+# attr_accessor :working
 
   def working?
-    true
-  end
-
-  def broken?
-    @broken = true
+    !@broken
   end
 
   def report_broken
-    @broken
+    @broken = true
   end
 
 end

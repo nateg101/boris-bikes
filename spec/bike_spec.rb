@@ -11,7 +11,7 @@ describe Bike do
   # I'd like to report a bike as broken when I return it.
   it "should allow a bike to reported as being broken" do
     subject.report_broken
-    expect(subject).to be_broken
+    expect(subject).not_to be_working
   end
 
 end
